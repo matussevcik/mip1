@@ -19,3 +19,5 @@ added function calls to main
 pushed refactored s function to refaktoring branch
 
 slight change to function vypisSpzPole
+
+changes to function names
