@@ -255,27 +255,20 @@ void vypisSpzPole(char** spz)
 
 		while ((*spz)[poziciaPole] != '\0')//vypise postupne vsetky spz zapisane v poli v tvare AA BBB CC a kazda spz bude v jednom riadku
 		{
-			putchar((*spz)[poziciaPole]);
-			poziciaPole++;
-			putchar((*spz)[poziciaPole]);
+			putchar((*spz)[poziciaPole++]);
+			putchar((*spz)[poziciaPole++]);
 			putchar(' ');
-			poziciaPole++;
 
-			putchar((*spz)[poziciaPole]);
-			poziciaPole++;
-			putchar((*spz)[poziciaPole]);
-			poziciaPole++;
-			putchar((*spz)[poziciaPole]);
+			putchar((*spz)[poziciaPole++]);
+			putchar((*spz)[poziciaPole++]);
+			putchar((*spz)[poziciaPole++]);
 			putchar(' ');
-			poziciaPole++;
 
-			putchar((*spz)[poziciaPole]);
-			poziciaPole++;
-			putchar((*spz)[poziciaPole]);
+			putchar((*spz)[poziciaPole++]);
+			putchar((*spz)[poziciaPole++]);
 
 			putchar('\n');
 
-			poziciaPole++;
 		}
 	}
 }
