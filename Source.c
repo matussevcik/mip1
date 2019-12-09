@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void v(FILE** fr)
+void vypisAutobazar(FILE** fr)
 {
 	if ((*fr = fopen("autobazar.txt", "r")) == NULL)//ak sa neotvori subor vypise Neotvoreny subor
 		printf("Neotvoreny subor\n");
@@ -13,6 +13,7 @@ void v(FILE** fr)
 		if ((*fr = fopen("autobazar.txt", "r")) != NULL)//ak uz bol subor otvoreny tak sa zavrie a otvori znovu, ak sa neotvori spravne vypise Neotvoreny subor
 		{
 			fclose(*fr);
+
 			if ((*fr = fopen("autobazar.txt", "r")) == NULL)
 				printf("Neotvoreny subor\n");
 		}
@@ -91,51 +92,71 @@ void v(FILE** fr)
 
 
 
-void o(FILE** fr)
+void odmena(FILE** fr)
 {
 	if (*fr == NULL)
 	{
-		int x;
-		scanf("%d", &x);
+		int datumPouzivatela;
+		scanf("%d", &datumPouzivatela);
 	}
+
 	else
 	{
-		int x;
-		scanf("%d", &x);
+		int datumPouzivatela;
+		scanf("%d", &datumPouzivatela);
+
 		rewind(*fr);//vrati subor na zaciatok
-		char a = fgetc(*fr);
-		int pz = 0;
-		while (a != EOF)//zisti pocet zaznamov, ktory zisti pomocou porovnavania so znakom \n, toto cislo treba predelit 6 aby sme dostali pocet zaznamov
+
+		char znakSuboru = fgetc(*fr);
+
+		int pocetZaznamov = 0;
+
+		while (znakSuboru != EOF)//zisti pocet zaznamov, ktory zisti pomocou porovnavania so znakom \n, toto cislo treba predelit 6 aby sme dostali pocet zaznamov
 		{
-			if (a == '\n')
-				pz += 1;
-			a = fgetc(*fr);
+			if (znakSuboru == '\n')
+				pocetZaznamov += 1;
+
+			znakSuboru = fgetc(*fr);
 		}
-		pz /= 6;
+		pocetZaznamov /= 6;
+
 		rewind(*fr);
-		for (int i = 1; i <= pz; i++)//podla poctu zaznamov prejde subor a nacitava vsetky udaje a ak predajca pracuje aspon rok vypise meno predajcu, spz a odmenu za predaj podla typu auta
+
+		for (int i = 1; i <= pocetZaznamov; i++)//podla poctu zaznamov prejde subor a nacitava vsetky udaje a ak predajca pracuje aspon rok vypise meno predajcu, spz a odmenu za predaj podla typu auta
 		{
 			char meno[50], spz[8];
-			int typ, datum;
-			double cena, odmena;
+			int typ, datumZamestnania;
+			double cenaAuta, odmenaPredajcu;
+
 			fgets(meno, 50, *fr);
+
 			fgets(spz, 8, *fr);
-			int dm = strlen(meno);
-			meno[dm - 1] = '\0';
+
+			int dlzkaMena = strlen(meno);
+			meno[dlzkaMena - 1] = '\0';
+
+			spz[7] = '\0';
+
 			fscanf(*fr, "%d", &typ);
-			fscanf(*fr, "%lf", &cena);
-			fscanf(*fr, "%d", &datum);
+
+			fscanf(*fr, "%lf", &cenaAuta);
+
+			fscanf(*fr, "%d", &datumZamestnania);
+
 			fgetc(*fr);
 			fgetc(*fr);
+
 			if (typ == 1)
-				odmena = cena * 0.023;
+				odmenaPredajcu = cenaAuta * 0.023;
 			if (typ == 0)
-				odmena = cena * 0.051;
-			if (x - datum >= 10000)
+				odmenaPredajcu = cenaAuta * 0.051;
+
+			if (datumPouzivatela - datumZamestnania >= 10000)
 			{
-				printf("%s %s %.2lf\n", meno, spz, odmena);
+				printf("%s %s %.2lf\n", meno, spz, odmenaPredajcu);
 			}
-			if (x - datum < 10000)
+
+			if (datumPouzivatela - datumZamestnania < 10000)
 				;
 		}
 	}
@@ -398,9 +419,9 @@ int main()
 	while (c != 0)
 	{
 		if (c == 'v')
-			v(&fr);
+			vypisAutobazar(&fr);
 		if (c == 'o')
-			o(&fr);
+			odmena(&fr);
 		if (c == 'n')
 			n(&spz, &fr);
 		if (c == 's')
