@@ -164,61 +164,77 @@ void odmena(FILE** fr)
 
 
 
-void n(char** spz, FILE** fr)
+void nacitajPoleSpz(char** spz, FILE** fr)
 {
 	if (*fr == NULL)
 		;
 	else
 	{
-		int pz = 0;
+		int pocetZaznamov = 0;
+
 		rewind(*fr);
-		char a = fgetc(*fr);
-		while (a != EOF)//zisti pocet zaznamov v subore
+
+		char znakSuboru = fgetc(*fr);
+
+		while (znakSuboru != EOF)//zisti pocet zaznamov v subore
 		{
-			if (a == '\n')
-				pz += 1;
-			a = fgetc(*fr);
+			if (znakSuboru == '\n')
+				pocetZaznamov += 1;
+			znakSuboru = fgetc(*fr);
 		}
-		pz = pz / 6;
+
+		pocetZaznamov /= 6;
 		rewind(*fr);
-		int k = 0, x = 0;
-		a = fgetc(*fr);
+
+		int poziciaPole = 0, pocetRiadkov = 0;
+
+		znakSuboru = fgetc(*fr);
+
 		if (*spz != NULL)//ak uz bolo pole vytvorene uvolni pamat kde bolo pole vytvorene a alokuje pamat nanovo, podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0		
 		{
 			free(*spz);
-			*spz = malloc(pz * 7 * sizeof(char) + 1);
+			*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);
 		}
 		else
-			*spz = malloc(pz * 7 * sizeof(char) + 1);//ak pole este nebolo vytvorene alokuje pamat podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0
-		while (a != EOF)
+			*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);//ak pole este nebolo vytvorene alokuje pamat podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0
+		
+		
+		while (znakSuboru != EOF)
 		{
-			while (x == 0)//x je pocet odriadkovani, ku spz sa vzdy dostaneme ked sme v druhom riadku zapisu, teda ked x=1
+			while (pocetRiadkov == 0)//x je pocet odriadkovani, ku spz sa vzdy dostaneme ked sme v druhom riadku zapisu, teda ked x=1
 			{
-				if (a == '\n')
-					x += 1;
-				a = fgetc(*fr);
+				if (znakSuboru == '\n')
+					pocetRiadkov += 1;
+
+				znakSuboru = fgetc(*fr);
 			}
-			while (x == 1)//zapisuje jednotive spz do pola
+			while (pocetRiadkov == 1)//zapisuje jednotive spz do pola
 			{
-				if (a == '\n')
-					x += 1;
-				if (x == 1)
+				if (znakSuboru == '\n')
+					pocetRiadkov += 1;
+
+				if (pocetRiadkov == 1)
 				{
-					(*spz)[k] = a;
-					k++;
+					(*spz)[poziciaPole] = znakSuboru;
+					poziciaPole++;
 				}
-				a = fgetc(*fr);
+
+				znakSuboru = fgetc(*fr);
 			}
-			while (x < 6)
+			while (pocetRiadkov < 6)
 			{
-				if (a == '\n')
-					x += 1;
-				a = fgetc(*fr);
+				if (znakSuboru == '\n')
+					pocetRiadkov += 1;
+
+				znakSuboru = fgetc(*fr);
 			}
-			x = 0;//vynuluje pocet odriadkovani a dalsim prikazom prechadza na dalsi zapis resp. na znak konca suboru a ukoci sa cyklus
-			a = fgetc(*fr);
+			
+			pocetRiadkov = 0;//vynuluje pocet odriadkovani a dalsim prikazom prechadza na dalsi zapis resp. na znak konca suboru a ukoci sa cyklus
+
+			znakSuboru = fgetc(*fr);
 		}
-		(*spz)[k] = '\0';
+
+		(*spz)[poziciaPole] = '\0';
 	}
 }
 
@@ -423,7 +439,7 @@ int main()
 		if (c == 'o')
 			odmena(&fr);
 		if (c == 'n')
-			n(&spz, &fr);
+			nacitajPoleSpz(&spz, &fr);
 		if (c == 's')
 			s(&spz);
 		if (c == 'm')
