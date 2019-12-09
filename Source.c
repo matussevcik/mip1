@@ -7,6 +7,7 @@ void v(FILE** fr)
 {
 	if ((*fr = fopen("autobazar.txt", "r")) == NULL)//ak sa neotvori subor vypise Neotvoreny subor
 		printf("Neotvoreny subor\n");
+
 	else
 	{
 		if ((*fr = fopen("autobazar.txt", "r")) != NULL)//ak uz bol subor otvoreny tak sa zavrie a otvori znovu, ak sa neotvori spravne vypise Neotvoreny subor
@@ -15,64 +16,81 @@ void v(FILE** fr)
 			if ((*fr = fopen("autobazar.txt", "r")) == NULL)
 				printf("Neotvoreny subor\n");
 		}
-		int r = 0;
-		char a = fgetc(*fr);
-		while (a != EOF)
+
+		int riadok = 0;
+		char znakSuboru = fgetc(*fr);
+
+
+		while (znakSuboru != EOF)
 		{
-			while (r < 5)//r je pocet odriadkovani
+			while (riadok < 5)//r je pocet odriadkovani
 			{
-				if (r == 0)
+				if (riadok == 0)
 					printf("Meno priezvisko: ");
-				while (r == 0)//vypise meno a priezvisko
+				while (riadok == 0)//vypise meno a priezvisko
 				{
-					if (a == '\n')
-						r += 1;
-					putchar(a);
-					a = fgetc(*fr);
+					if (znakSuboru == '\n')
+						riadok += 1;
+					putchar(znakSuboru);
+					znakSuboru = fgetc(*fr);
 				}
-				if (r == 1)
+
+				if (riadok == 1)
 					printf("SPZ: ");
-				while (r == 1)//vypise spz auta ktore bolo predane
+				while (riadok == 1)//vypise spz auta ktore bolo predane
 				{
-					if (a == '\n')
-						r += 1;
-					putchar(a);
-					a = fgetc(*fr);
+					if (znakSuboru == '\n')
+						riadok += 1;
+					putchar(znakSuboru);
+					znakSuboru = fgetc(*fr);
 				}
-				if (r == 2)
+
+				if (riadok == 2)
 					printf("typ auta: ");
-				while (r == 2)//vypise typ predaneho auta => ak je 1 auto je nove, 0 ojazdene
+				while (riadok == 2)//vypise typ predaneho auta => ak je 1 auto je nove, 0 ojazdene
 				{
-					if (a == '\n')
-						r += 1;
-					putchar(a);
-					a = fgetc(*fr);
+					if (znakSuboru == '\n')
+						riadok += 1;
+
+					if (znakSuboru == '1')
+						printf("nove auto\n");
+					if (znakSuboru == '0')
+						printf("ojazdene auto\n");
+
+					znakSuboru = fgetc(*fr);
 				}
-				if (r == 3)
+
+				if (riadok == 3)
 					printf("cena: ");
-				while (r == 3)//vypise cenu predaneho auta
+				while (riadok == 3)//vypise cenu predaneho auta
 				{
-					if (a == '\n')
-						r += 1;
-					putchar(a);
-					a = fgetc(*fr);
+					if (znakSuboru == '\n')
+						riadok += 1;
+					putchar(znakSuboru);
+					znakSuboru = fgetc(*fr);
 				}
-				if (r == 4)
+
+				if (riadok == 4)
 					printf("datum: ");
-				while (r == 4)//vypise datum od kedy je predajca zamestnany
+				while (riadok == 4)//vypise datum od kedy je predajca zamestnany
 				{
-					if (a == '\n')
-						r += 1;
-					putchar(a);
-					a = fgetc(*fr);
+					if (znakSuboru == '\n')
+						riadok += 1;
+					putchar(znakSuboru);
+					znakSuboru = fgetc(*fr);
 				}
-				putchar(a);//vypise prazdny riadok za jednym vypisom
-				a = fgetc(*fr);
+
+				putchar(znakSuboru);//vypise prazdny riadok za jednym vypisom
+				znakSuboru = fgetc(*fr);
 			}
-			r = 0;//vynuluje pocet odriadkovani
+
+			riadok = 0;//vynuluje pocet odriadkovani
 		}
 	}
 }
+
+
+
 void o(FILE** fr)
 {
 	if (*fr == NULL)
@@ -122,6 +140,9 @@ void o(FILE** fr)
 		}
 	}
 }
+
+
+
 void n(char** spz, FILE** fr)
 {
 	if (*fr == NULL)
@@ -179,6 +200,9 @@ void n(char** spz, FILE** fr)
 		(*spz)[k] = '\0';
 	}
 }
+
+
+
 void s(char** spz)
 {
 	if (*spz == NULL)
@@ -208,6 +232,9 @@ void s(char** spz)
 		}
 	}
 }
+
+
+
 void m(char** spz)
 {
 	if (*spz == NULL)
@@ -255,6 +282,9 @@ void m(char** spz)
 		printf("%c %d\n", maxznak, pocz);
 	}
 }
+
+
+
 void p(char** spz)
 {
 	if (*spz == NULL)
@@ -283,6 +313,9 @@ void p(char** spz)
 		}
 	}
 }
+
+
+
 void z(char** spz)
 {
 	if ((*spz) == NULL)
@@ -329,6 +362,9 @@ void z(char** spz)
 		free(maxpc);
 	}
 }
+
+
+
 void b(char** spz)
 {
 	if ((*spz) == NULL)
@@ -373,6 +409,8 @@ int main()
 			m(&spz);
 		if (c == 'b')
 			b(&spz);
+		if (c == 'm')
+			m(&spz);
 		if (c == 'k')
 		{
 			if ((fr = fopen("autobazar.txt", "r")) == NULL)
