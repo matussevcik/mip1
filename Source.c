@@ -275,7 +275,7 @@ void vypisSpzPole(char** spz)
 
 
 
-void m(char** spz)
+void maxZnak(char** spz)
 {
 	if (*spz == NULL)
 		printf("Pole nie je vytvorene\n");
@@ -325,7 +325,7 @@ void m(char** spz)
 
 
 
-void p(char** spz)
+void palindrom(char** spz)
 {
 	if (*spz == NULL)
 		printf("Pole nie je vytvorene\n");
@@ -356,7 +356,7 @@ void p(char** spz)
 
 
 
-void z(char** spz)
+void maxZnacka(char** spz)
 {
 	if ((*spz) == NULL)
 		;
@@ -405,7 +405,7 @@ void z(char** spz)
 
 
 
-void b(char** spz)
+void pocetCislic(char** spz)
 {
 	if ((*spz) == NULL)
 		printf("Pole nie je vytvorene");
@@ -446,13 +446,13 @@ int main()
 		if (c == 's')
 			vypisSpzPole(&spz);
 		if (c == 'p')
-			p(&spz);
+			palindrom(&spz);
 		if (c == 'b')
-			b(&spz);
+			pocetCislic(&spz);
 		if (c == 'm')
-			m(&spz);
+			maxZnak(&spz);
 		if (c == 'z')
-			z(&spz);
+			maxZnacka(&spz);
 		if (c == 'k')
 		{
 			if ((fr = fopen("autobazar.txt", "r")) == NULL)
