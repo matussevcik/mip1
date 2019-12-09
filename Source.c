@@ -180,6 +180,7 @@ void nacitajPoleSpz(char** spz, FILE** fr)
 		{
 			if (znakSuboru == '\n')
 				pocetZaznamov += 1;
+
 			znakSuboru = fgetc(*fr);
 		}
 
@@ -195,6 +196,7 @@ void nacitajPoleSpz(char** spz, FILE** fr)
 			free(*spz);
 			*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);
 		}
+
 		else
 			*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);//ak pole este nebolo vytvorene alokuje pamat podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0
 		
@@ -208,6 +210,7 @@ void nacitajPoleSpz(char** spz, FILE** fr)
 
 				znakSuboru = fgetc(*fr);
 			}
+
 			while (pocetRiadkov == 1)//zapisuje jednotive spz do pola
 			{
 				if (znakSuboru == '\n')
@@ -221,6 +224,7 @@ void nacitajPoleSpz(char** spz, FILE** fr)
 
 				znakSuboru = fgetc(*fr);
 			}
+
 			while (pocetRiadkov < 6)
 			{
 				if (znakSuboru == '\n')
