@@ -13,3 +13,5 @@ pushed refactored o function
 pushed refactored n function
 
 few changes in n fuction
+
+added function calls to main
