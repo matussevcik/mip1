@@ -244,32 +244,38 @@ void nacitajPoleSpz(char** spz, FILE** fr)
 
 
 
-void s(char** spz)
+void vypisSpzPole(char** spz)
 {
 	if (*spz == NULL)
 		printf("Pole nie je vytvorene\n");//ak nebolo este pole vytvorene vypise sa Pole nie je vytvorene
+	
 	else
 	{
-		int k = 0;// k je pozicia v poli
-		while ((*spz)[k] != '\0')//vypise postupne vsetky spz zapisane v poli v tvare AA BBB CC a kazda spz bude v jednom riadku
+		int poziciaPole = 0;
+
+		while ((*spz)[poziciaPole] != '\0')//vypise postupne vsetky spz zapisane v poli v tvare AA BBB CC a kazda spz bude v jednom riadku
 		{
-			putchar((*spz)[k]);
-			k++;
-			putchar((*spz)[k]);
+			putchar((*spz)[poziciaPole]);
+			poziciaPole++;
+			putchar((*spz)[poziciaPole]);
 			putchar(' ');
-			k++;
-			putchar((*spz)[k]);
-			k++;
-			putchar((*spz)[k]);
-			k++;
-			putchar((*spz)[k]);
+			poziciaPole++;
+
+			putchar((*spz)[poziciaPole]);
+			poziciaPole++;
+			putchar((*spz)[poziciaPole]);
+			poziciaPole++;
+			putchar((*spz)[poziciaPole]);
 			putchar(' ');
-			k++;
-			putchar((*spz)[k]);
-			k++;
-			putchar((*spz)[k]);
+			poziciaPole++;
+
+			putchar((*spz)[poziciaPole]);
+			poziciaPole++;
+			putchar((*spz)[poziciaPole]);
+
 			putchar('\n');
-			k++;
+
+			poziciaPole++;
 		}
 	}
 }
@@ -445,7 +451,7 @@ int main()
 		if (c == 'n')
 			nacitajPoleSpz(&spz, &fr);
 		if (c == 's')
-			s(&spz);
+			vypisSpzPole(&spz);
 		if (c == 'p')
 			p(&spz);
 		if (c == 'b')
