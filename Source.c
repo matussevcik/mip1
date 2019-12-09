@@ -446,12 +446,14 @@ int main()
 			nacitajPoleSpz(&spz, &fr);
 		if (c == 's')
 			s(&spz);
-		if (c == 'm')
-			m(&spz);
+		if (c == 'p')
+			p(&spz);
 		if (c == 'b')
 			b(&spz);
 		if (c == 'm')
 			m(&spz);
+		if (c == 'z')
+			z(&spz);
 		if (c == 'k')
 		{
 			if ((fr = fopen("autobazar.txt", "r")) == NULL)
