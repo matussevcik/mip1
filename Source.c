@@ -73,6 +73,10 @@ void v(FILE** fr)
 		}
 	}
 }
+
+
+
+
 void o(FILE** fr)
 {
 	if (*fr == NULL)
@@ -122,6 +126,10 @@ void o(FILE** fr)
 		}
 	}
 }
+
+
+
+
 void n(char** spz, FILE** fr)
 {
 	if (*fr == NULL)
@@ -179,6 +187,10 @@ void n(char** spz, FILE** fr)
 		(*spz)[k] = '\0';
 	}
 }
+
+
+
+
 void s(char** spz)
 {
 	if (*spz == NULL)
@@ -208,6 +220,10 @@ void s(char** spz)
 		}
 	}
 }
+
+
+
+
 void m(char** spz)
 {
 	if (*spz == NULL)
@@ -255,6 +271,10 @@ void m(char** spz)
 		printf("%c %d\n", maxznak, pocz);
 	}
 }
+
+
+
+
 void p(char** spz)
 {
 	if (*spz == NULL)
@@ -283,6 +303,10 @@ void p(char** spz)
 		}
 	}
 }
+
+
+
+
 void z(char** spz)
 {
 	if ((*spz) == NULL)
@@ -329,6 +353,10 @@ void z(char** spz)
 		free(maxpc);
 	}
 }
+
+
+
+
 void b(char** spz)
 {
 	if ((*spz) == NULL)
@@ -373,6 +401,10 @@ int main()
 			m(&spz);
 		if (c == 'b')
 			b(&spz);
+		if (c == 'z')
+			z(&spz);
+		if (c == 'p')
+			p(&spz);
 		if (c == 'k')
 		{
 			if ((fr = fopen("autobazar.txt", "r")) == NULL)
