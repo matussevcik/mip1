@@ -11,3 +11,5 @@ pushed refactored v function
 pushed refactored o function
 
 pushed refactored n function
+
+few changes in n fuction
