@@ -342,25 +342,32 @@ void palindrom(char** spz)
 {
 	if (*spz == NULL)
 		printf("Pole nie je vytvorene\n");
+
 	else
 	{
 		int poziciaMalePole = 7, poziciaPole = 0, pocetRovnakyZnak = 0, i = 0, j = 0;
+
 		while ((*spz)[poziciaPole] != '\0')
 		{
 			char* polePalindrom = malloc(7 * sizeof(char) + 1);
+
 			for (i = poziciaPole, j = 0; i < poziciaPole + 7; i++, j++)//do pola c sa prepise spz z pola spz
-			{
 				polePalindrom[j] = (*spz)[i];
-			}
+
+
 			polePalindrom[poziciaMalePole] = '\0';
+
+
 			for (int l = 0, k = poziciaMalePole - 1; l < (poziciaMalePole - 1) / 2; l++,k--)//kontroluje ci je spz ulozena v poli c palindrom 
-			{
 				if (polePalindrom[l] == polePalindrom[k])
 					pocetRovnakyZnak += 1;
-			}
+
+
 			if (pocetRovnakyZnak == 3)//ak je pocet rovnakych znakov = 3, spz je palindrom a vypisu sa prve dva znaky z spz
 				printf("%c%c\n", polePalindrom[0], polePalindrom[1]);
 			free(polePalindrom);
+
+
 			poziciaPole += 7;//prechod na dalsiu spz
 			pocetRovnakyZnak = 0;
 		}
@@ -375,44 +382,51 @@ void maxZnacka(char** spz)
 		;
 	else
 	{
-		char* c = malloc(2 * sizeof(char) + 1);
-		char* maxpc = malloc(2 * sizeof(char) + 1);
-		int k = 0, y = 0, x = 0, maxz = 0;
-		while ((*spz)[k] != '\0')
+		char* poleMale = malloc(2 * sizeof(char) + 1);
+		char* maxSPZ = malloc(2 * sizeof(char) + 1);
+
+		int poziciaPole = 0, poziciaOkres = 0, pocetRovnake = 0, maxZnacka = 0;
+
+		while ((*spz)[poziciaPole] != '\0')
 		{
-			for (int i = y, j = 0; i < y + 2; i++, j++)//nacita prve dva znaky z pola spz do pola c a v dalsich iteraciach nacita prve dva znaky z dalsej spz v poli
+			for (int i = poziciaOkres, j = 0; i < poziciaOkres + 2; i++, j++)//nacita prve dva znaky z pola spz do pola c a v dalsich iteraciach nacita prve dva znaky z dalsej spz v poli
+				poleMale[j] = (*spz)[i];
+
+			poleMale[2] = '\0';
+
+			int pozicia = 0;
+
+			while ((*spz)[pozicia] != '\0')//zisti pocetnost spz ulozenej v poli c
 			{
-				c[j] = (*spz)[i];
+				
+				if (poleMale[0] == (*spz)[pozicia])
+					if (poleMale[1] == (*spz)[pozicia + 1])
+						pocetRovnake += 1;
+
+				pozicia += 7;
 			}
-			c[2] = '\0';
-			int a = 0;
-			while ((*spz)[a] != '\0')//zisti pocetnost spz ulozenej v poli c
+
+
+			if (maxZnacka < pocetRovnake)//porovna pocet najvacsieho vyskytu s novym poctom a ak je novy pocet vacsi prepise pocet najpocetnejsieho okresu a pole obsahujuce spz tohto okresu
 			{
-				if (c[0] == (*spz)[a])
-				{
-					if (c[1] == (*spz)[a + 1])
-					{
-						x += 1;
-					}
-				}
-				a += 7;
-			}
-			if (maxz < x)//porovna pocet najvacsieho vyskytu s novym poctom a ak je novy pocet vacsi prepise pocet najpocetnejsieho okresu a pole obsahujuce spz tohto okresu
-			{
-				maxz = x;
+				maxZnacka = pocetRovnake;
+
 				for (int i = 0; i < 2; i++)
-				{
-					maxpc[i] = c[i];
-				}
-				maxpc[2] = '\0';
+					maxSPZ[i] = poleMale[i];
+
+
+				maxSPZ[2] = '\0';
 			}
-			k += 7;
-			y += 7;
-			x = 0;
+
+			poziciaPole += 7;
+			poziciaOkres += 7;
+			pocetRovnake = 0;
 		}
-		printf("%c%c %d\n", maxpc[0], maxpc[1], maxz); //vypise sa iba najpocetnejsia a ta co bola v subore zapisana skor ak ich bolo viac s rovnakym poctom vyskytov
-		free(c);
-		free(maxpc);
+
+		printf("%c%c %d\n", maxSPZ[0], maxSPZ[1], maxZnacka); //vypise sa iba najpocetnejsia a ta co bola v subore zapisana skor ak ich bolo viac s rovnakym poctom vyskytov
+
+		free(poleMale);
+		free(maxSPZ);
 	}
 }
 
