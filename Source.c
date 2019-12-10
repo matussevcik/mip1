@@ -344,25 +344,25 @@ void palindrom(char** spz)
 		printf("Pole nie je vytvorene\n");
 	else
 	{
-		int k = 7, i = 0, x = 0, j = 0, a = 0;
-		while ((*spz)[i] != '\0')
+		int poziciaMalePole = 7, poziciaPole = 0, pocetRovnakyZnak = 0, i = 0, j = 0;
+		while ((*spz)[poziciaPole] != '\0')
 		{
-			char* c = malloc(7 * sizeof(char) + 1);
-			for (j = i, a = 0; j < i + 7; j++, a++)//do pola c sa prepise spz z pola spz
+			char* polePalindrom = malloc(7 * sizeof(char) + 1);
+			for (i = poziciaPole, j = 0; i < poziciaPole + 7; i++, j++)//do pola c sa prepise spz z pola spz
 			{
-				c[a] = (*spz)[j];
+				polePalindrom[j] = (*spz)[i];
 			}
-			c[k] = '\0';
-			for (int l = 0, m = k - 1; l < (k - 1) / 2; l++, m--)//kontroluje ci je spz ulozena v poli c palindrom 
+			polePalindrom[poziciaMalePole] = '\0';
+			for (int l = 0, k = poziciaMalePole - 1; l < (poziciaMalePole - 1) / 2; l++,k--)//kontroluje ci je spz ulozena v poli c palindrom 
 			{
-				if (c[l] == c[m])
-					x += 1;
+				if (polePalindrom[l] == polePalindrom[k])
+					pocetRovnakyZnak += 1;
 			}
-			if (x == 3)//ak je x = 3 spz je palindrom a vypisu sa prve dva znaky z spz
-				printf("%c%c\n", c[0], c[1]);
-			free(c);
-			i += 7;//prechod na dalsiu spz
-			x = 0;
+			if (pocetRovnakyZnak == 3)//ak je pocet rovnakych znakov = 3, spz je palindrom a vypisu sa prve dva znaky z spz
+				printf("%c%c\n", polePalindrom[0], polePalindrom[1]);
+			free(polePalindrom);
+			poziciaPole += 7;//prechod na dalsiu spz
+			pocetRovnakyZnak = 0;
 		}
 	}
 }
