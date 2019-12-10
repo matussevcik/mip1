@@ -279,47 +279,60 @@ void maxZnak(char** spz)
 {
 	if (*spz == NULL)
 		printf("Pole nie je vytvorene\n");
+
 	else
 	{
-		int i = 0, a = 0, pocet = 0, pocz = 0;
-		char c = 'A';
-		while ((*spz)[i] != '\0' && c <= 'Z')//zisti pocetnost znaku
+		int poziciaHladanyZnak = 0, poziciaPole = 0, pocetAktualny = 0, pocetMax = 0;
+		char znak = 'A';
+
+		while ((*spz)[poziciaHladanyZnak] != '\0' && znak <= 'Z')//zisti pocetnost znaku
 		{
-			while ((*spz)[a] != '\0')
+			while ((*spz)[poziciaPole] != '\0')
 			{
-				if ((*spz)[a] == c)
-					pocet += 1;
-				a++;
+				if ((*spz)[poziciaPole] == znak)
+					pocetAktualny += 1;
+
+				poziciaPole++;
 			}
-			if (pocet > pocz)//ak je pocet daneho znaku vacsi ako velkost doposial najpocetnejsieho znaku tak sa pocet najpocetnejsieho znaku prepise na tuto hodnotu
-				pocz = pocet;
-			i++;
-			c++;
-			a = 0;
-			pocet = 0;
+
+			if (pocetAktualny > pocetMax)//ak je pocet daneho znaku vacsi ako velkost doposial najpocetnejsieho znaku tak sa pocet najpocetnejsieho znaku prepise na tuto hodnotu
+				pocetMax = pocetAktualny;
+
+			poziciaHladanyZnak++;
+			znak++;
+
+			poziciaPole = 0;
+			pocetAktualny = 0;
 		}
-		c = c - 26;
+
+		znak -= 26;
 		char maxznak = 'A';
-		i = 0;
-		while ((*spz)[i] != '\0' && c <= 'Z')//podla porovnavania s poctom vyskytu najpocetnejsieho znaku najde najpozetnejsi znak
+		poziciaHladanyZnak = 0;
+
+		while ((*spz)[poziciaHladanyZnak] != '\0' && znak <= 'Z')//podla porovnavania s poctom vyskytu najpocetnejsieho znaku najde najpozetnejsi znak
 		{
-			while ((*spz)[a] != '\0')
+			while ((*spz)[poziciaPole] != '\0')
 			{
-				if ((*spz)[a] == c)
-					pocet += 1;
-				a++;
+				if ((*spz)[poziciaPole] == znak)
+					pocetAktualny += 1;
+
+				poziciaPole++;
 			}
-			if (pocet == pocz)//ak je pocetnost znaku rovna poctu najpocetnejsieho znaku tak sa do premennej maxznak ulozi tento znak
+
+			if (pocetAktualny == pocetMax)//ak je pocetnost znaku rovna poctu najpocetnejsieho znaku tak sa do premennej maxznak ulozi tento znak
 			{
 				maxznak = 'A';
-				maxznak = maxznak + i;
+				maxznak = maxznak + poziciaHladanyZnak;
 			}
-			i++;
-			c++;
-			a = 0;
-			pocet = 0;
+
+			poziciaHladanyZnak++;
+			znak++;
+
+			poziciaPole = 0;
+			pocetAktualny = 0;
 		}
-		printf("%c %d\n", maxznak, pocz);
+
+		printf("%c %d\n", maxznak, pocetMax);
 	}
 }
 
