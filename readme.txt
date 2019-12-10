@@ -1,23 +1,18 @@
 program about sold cars
 
-committed and pushed original source code+readme+autobazar.txt
+the program writes out information about sold cars from file to standard output when "v" is the input 
 
-created branch refaktoring to refactor the code
+when "o" is the input the program then takes a date from the standard input in format yyyymmdd and if the file was opened then it writes out information about revenue the seller
+made from the sale, it only writes it out if he has worked there for at least a year
 
-made a mistake with pushing so pushed 1 source 2 times
+when "n" is the input and the file has been opened the program creates an array of the number plates of the sold cars
 
-pushed refactored v function to refaktoring branch
+when "s" is the input and the array has been created it writes out the number plates from the array in format AA BBB CC
 
-pushed refactored o function to refaktoring branch
+when "m" is the input and the array has been created it finds the character with the highest number of occurence in the array
 
-pushed refactored n function to refaktoring branch
+when "p" is the input the program checks if each number plate is a palindrome, and if it is a palindrome then it is writen out on the screen
 
-few changes in n fuction
+when "z" is the input the program finds the munber plate of a region in which most cars were sold and the writes it out 
 
-added function calls to main
-
-pushed refactored s function to refaktoring branch
-
-slight change to function vypisSpzPole
-
-changes to function names
+when "b" is the input the program finds and writes out the number of occurences of figures in the array
