@@ -10,8 +10,6 @@ void vypisAutobazar(FILE** rF)
 		printf("Neotvoreny subor\n");
 		return 1;
 	}
-
-	
 	
 	if ((*rF = fopen("autobazar.txt", "r")) != NULL)//ak uz bol subor otvoreny tak sa zavrie a otvori znovu, ak sa neotvori spravne vypise Neotvoreny subor
 	{
@@ -31,6 +29,15 @@ void vypisAutobazar(FILE** rF)
 		{
 			if (riadok == 0)
 				printf("Meno priezvisko: ");
+			if (riadok == 1)
+				printf("SPZ: ");
+			if (riadok == 2)
+				printf("typ auta: ");
+			if (riadok == 3)
+				printf("cena: ");
+			if (riadok == 4)
+				printf("datum: ");
+
 			while (riadok == 0)//vypise meno a priezvisko
 			{
 				if (znakSuboru == '\n')
@@ -42,8 +49,6 @@ void vypisAutobazar(FILE** rF)
 			}
 
 
-			if (riadok == 1)
-				printf("SPZ: ");
 			while (riadok == 1)//vypise spz auta ktore bolo predane
 			{
 				if (znakSuboru == '\n')
@@ -55,8 +60,6 @@ void vypisAutobazar(FILE** rF)
 			}
 
 
-			if (riadok == 2)
-				printf("typ auta: ");
 			while (riadok == 2)//vypise typ predaneho auta => ak je 1 auto je nove, 0 ojazdene
 			{
 				if (znakSuboru == '\n')
@@ -75,8 +78,6 @@ void vypisAutobazar(FILE** rF)
 			}
 
 
-			if (riadok == 3)
-				printf("cena: ");
 			while (riadok == 3)//vypise cenu predaneho auta
 			{
 				if (znakSuboru == '\n')
@@ -88,8 +89,6 @@ void vypisAutobazar(FILE** rF)
 			}
 
 
-			if (riadok == 4)
-				printf("datum: ");
 			while (riadok == 4)//vypise datum od kedy je predajca zamestnany
 			{
 				if (znakSuboru == '\n')
@@ -109,8 +108,6 @@ void vypisAutobazar(FILE** rF)
 		riadok = 0;//vynuluje pocet odriadkovani
 	}
 }
-
-
 
 
 
@@ -184,7 +181,6 @@ void odmena(FILE** rF)
 		
 	}
 }
-
 
 
 
@@ -269,7 +265,6 @@ void nacitajPoleSpz(char** spz, FILE** rF)
 
 
 
-
 void vypisSpzPole(char** spz)
 
 {
@@ -299,7 +294,6 @@ void vypisSpzPole(char** spz)
 
 	}
 }
-
 
 
 
@@ -369,7 +363,6 @@ void maxZnak(char** spz)
 
 
 
-
 void palindrom(char** spz)
 {
 	if (*spz == NULL)
@@ -405,7 +398,6 @@ void palindrom(char** spz)
 		pocetRovnakyZnak = 0;
 	}
 }
-
 
 
 
@@ -490,6 +482,7 @@ void pocetCislic(char** spz)
 
 	}
 }
+
 
 
 
