@@ -16,3 +16,5 @@ when "p" is the input the program checks if each number plate is a palindrome, a
 when "z" is the input the program finds the munber plate of a region in which most cars were sold and the writes it out 
 
 when "b" is the input the program finds and writes out the number of occurences of figures in the array
+
+when "k" is the input it ends the program 
