@@ -436,21 +436,24 @@ void pocetCislic(char** spz)
 {
 	if ((*spz) == NULL)
 		printf("Pole nie je vytvorene");
+
 	else
 	{
-		int x = 0;
-		for (char j = '0'; j <= '9'; j++)
+		for (char cislica = '0'; cislica <= '9'; cislica++)
 		{
-			int i = 0;
-			while ((*spz)[i] != '\0')
+			int poziciaPole = 0, pocetnost = 0;;
+
+			while ((*spz)[poziciaPole] != '\0')
 			{
-				if ((*spz)[i] == j)
-					x += 1;
-				i++;
+				if ((*spz)[poziciaPole] == cislica)
+					pocetnost += 1;
+
+				poziciaPole++;
 			}
-			if (x != 0)
-				printf("%c:%d\n", j, x);
-			x = 0;
+
+			if (pocetnost != 0)
+				printf("%c: %d\n", cislica, pocetnost);
+
 		}
 	}
 }
@@ -462,33 +465,46 @@ int main()
 	FILE* fr = NULL;
 	char c = getchar();
 	char* spz = NULL;
+
 	while (c != 0)
 	{
 		if (c == 'v')
 			vypisAutobazar(&fr);
+
 		if (c == 'o')
 			odmena(&fr);
+
 		if (c == 'n')
 			nacitajPoleSpz(&spz, &fr);
+
 		if (c == 's')
 			vypisSpzPole(&spz);
+
 		if (c == 'p')
 			palindrom(&spz);
+
 		if (c == 'b')
 			pocetCislic(&spz);
+
 		if (c == 'm')
 			maxZnak(&spz);
+
 		if (c == 'z')
 			maxZnacka(&spz);
+
 		if (c == 'k')
 		{
 			if ((fr = fopen("autobazar.txt", "r")) == NULL)
 				;
 			else fclose(fr);
+
 			free(spz);
+
 			return 0;
 		}
+
 		c = getchar();
 	}
+
 	return 0;
 }
