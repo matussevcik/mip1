@@ -3,25 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void vypisAutobazar(FILE** rF)
+void vypis(FILE** rF)
 {
-	if ((*rF = fopen("autobazar.txt", "r")) == NULL)//ak sa neotvori subor vypise Neotvoreny subor
-	{
-		printf("Neotvoreny subor\n");
-		return 1;
-	}
-	
-	if ((*rF = fopen("autobazar.txt", "r")) != NULL)//ak uz bol subor otvoreny tak sa zavrie a otvori znovu, ak sa neotvori spravne vypise Neotvoreny subor
-	{
-		fclose(*rF);
-
-		if ((*rF = fopen("autobazar.txt", "r")) == NULL)
-			printf("Neotvoreny subor\n");
-	}
-
 	int riadok = 0;
 	char znakSuboru = fgetc(*rF);
-
 
 	while (znakSuboru != EOF)
 	{
@@ -29,15 +14,6 @@ void vypisAutobazar(FILE** rF)
 		{
 			if (riadok == 0)
 				printf("Meno priezvisko: ");
-			if (riadok == 1)
-				printf("SPZ: ");
-			if (riadok == 2)
-				printf("typ auta: ");
-			if (riadok == 3)
-				printf("cena: ");
-			if (riadok == 4)
-				printf("datum: ");
-
 			while (riadok == 0)//vypise meno a priezvisko
 			{
 				if (znakSuboru == '\n')
@@ -48,7 +24,8 @@ void vypisAutobazar(FILE** rF)
 				znakSuboru = fgetc(*rF);
 			}
 
-
+			if (riadok == 1)
+				printf("SPZ: ");
 			while (riadok == 1)//vypise spz auta ktore bolo predane
 			{
 				if (znakSuboru == '\n')
@@ -59,25 +36,27 @@ void vypisAutobazar(FILE** rF)
 				znakSuboru = fgetc(*rF);
 			}
 
-
+			if (riadok == 2)
+				printf("typ auta: ");
 			while (riadok == 2)//vypise typ predaneho auta => ak je 1 auto je nove, 0 ojazdene
 			{
 				if (znakSuboru == '\n')
 					riadok += 1;
-					
+
 				if (znakSuboru == '1')
 					printf("nove auto\n");
 				else if (znakSuboru == '0')
 
-				if (znakSuboru == '1')
-					printf("nove auto\n");
+					if (znakSuboru == '1')
+						printf("nove auto\n");
 				if (znakSuboru == '0')
 					printf("ojazdene auto\n");
 
 				znakSuboru = fgetc(*rF);
 			}
 
-
+			if (riadok == 3)
+				printf("cena: ");
 			while (riadok == 3)//vypise cenu predaneho auta
 			{
 				if (znakSuboru == '\n')
@@ -88,7 +67,8 @@ void vypisAutobazar(FILE** rF)
 				znakSuboru = fgetc(*rF);
 			}
 
-
+			if (riadok == 4)
+				printf("datum: ");
 			while (riadok == 4)//vypise datum od kedy je predajca zamestnany
 			{
 				if (znakSuboru == '\n')
@@ -112,13 +92,54 @@ void vypisAutobazar(FILE** rF)
 
 
 
+void vypisAutobazar(FILE** rF)
+{
+	if ((*rF = fopen("autobazar.txt", "r")) == NULL)//ak sa neotvori subor vypise Neotvoreny subor
+	{
+		printf("Neotvoreny subor\n");
+		return;
+	}
+	
+	if ((*rF = fopen("autobazar.txt", "r")) != NULL)//ak uz bol subor otvoreny tak sa zavrie a otvori znovu, ak sa neotvori spravne vypise Neotvoreny subor
+	{
+		fclose(*rF);
+
+		if ((*rF = fopen("autobazar.txt", "r")) == NULL)
+			printf("Neotvoreny subor\n");
+	}
+
+	vypis(rF);
+}
+
+
+
+
+int pocetZaznamov(FILE** rF)
+{
+	char znakSuboru = fgetc(*rF);
+	int pocet = 0;
+
+	while (znakSuboru != EOF)//zisti pocet zaznamov, ktory zisti pomocou porovnavania so znakom \n, toto cislo treba predelit 6 aby sme dostali pocet zaznamov
+	{
+		if (znakSuboru == '\n')
+			pocet += 1;
+
+		znakSuboru = fgetc(*rF);
+	}
+
+	return pocet / 6;
+}
+
+
+
+
 void odmena(FILE** rF)
 {
 	if (*rF == NULL)
 	{
 		int datumPouzivatela;
 		scanf("%d", &datumPouzivatela);
-		return 1;
+		return;
 	}
 
 
@@ -127,22 +148,11 @@ void odmena(FILE** rF)
 
 	rewind(*rF);//vrati subor na zaciatok
 
-	char znakSuboru = fgetc(*rF);
-
-	int pocetZaznamov = 0;
-
-	while (znakSuboru != EOF)//zisti pocet zaznamov, ktory zisti pomocou porovnavania so znakom \n, toto cislo treba predelit 6 aby sme dostali pocet zaznamov
-	{
-		if (znakSuboru == '\n')
-			pocetZaznamov += 1;
-
-		znakSuboru = fgetc(*rF);
-	}
-	pocetZaznamov /= 6;
+	int pocetZ = pocetZaznamov(rF);
 
 	rewind(*rF);
 
-	for (int i = 1; i <= pocetZaznamov; i++)//podla poctu zaznamov prejde subor a nacitava vsetky udaje a ak predajca pracuje aspon rok vypise meno predajcu, spz a odmenu za predaj podla typu auta
+	for (int i = 1; i <= pocetZ; i++)//podla poctu zaznamov prejde subor a nacitava vsetky udaje a ak predajca pracuje aspon rok vypise meno predajcu, spz a odmenu za predaj podla typu auta
 	{
 		char meno[50], spz[8];
 		int typ, datumZamestnania;
@@ -188,37 +198,26 @@ void odmena(FILE** rF)
 void nacitajPoleSpz(char** spz, FILE** rF)
 {
 	if (*rF == NULL)
-		return 1;
-
-	int pocetZaznamov = 0;
+		return;
 
 	rewind(*rF);
 
-	char znakSuboru = fgetc(*rF);
+	int pocetZ = pocetZaznamov(rF);
 
-	while (znakSuboru != EOF)//zisti pocet zaznamov v subore
-	{
-		if (znakSuboru == '\n')
-			pocetZaznamov += 1;
-
-		znakSuboru = fgetc(*rF);
-	}
-
-	pocetZaznamov /= 6;
 	rewind(*rF);
 
 	int poziciaPole = 0, pocetRiadkov = 0;
 
-	znakSuboru = fgetc(*rF);
+	char znakSuboru = fgetc(*rF);
 
 	if (*spz != NULL)//ak uz bolo pole vytvorene uvolni pamat kde bolo pole vytvorene a alokuje pamat nanovo, podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0		
 	{
 		free(*spz);
-		*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);
+		*spz = malloc(pocetZ * 7 * sizeof(char) + 1);
 	}
 
 	else
-		*spz = malloc(pocetZaznamov * 7 * sizeof(char) + 1);//ak pole este nebolo vytvorene alokuje pamat podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0
+		*spz = malloc(pocetZ * 7 * sizeof(char) + 1);//ak pole este nebolo vytvorene alokuje pamat podla poctu zaznamov a velkosti spz + 1 miesto pre znak \0
 		
 		
 	while (znakSuboru != EOF)
@@ -271,7 +270,7 @@ void vypisSpzPole(char** spz)
 	if (*spz == NULL)
 	{
 		printf("Pole nie je vytvorene\n");//ak nebolo este pole vytvorene vypise sa Pole nie je vytvorene
-		return 1;
+		return;
 	}
 	
 	int poziciaPole = 0;
@@ -304,7 +303,7 @@ void maxZnak(char** spz)
 	if (*spz == NULL)
 	{
 		printf("Pole nie je vytvorene\n");
-		return 1;
+		return;
 	}
 
 	int poziciaHladanyZnak = 0, poziciaPole = 0, pocetAktualny = 0, pocetMax = 0;
@@ -368,7 +367,7 @@ void palindrom(char** spz)
 	if (*spz == NULL)
 	{
 		printf("Pole nie je vytvorene\n");
-		return 1;
+		return;
 	}
 
 	int poziciaMalePole = 7, poziciaPole = 0, pocetRovnakyZnak = 0, i = 0, j = 0;
@@ -405,7 +404,7 @@ void palindrom(char** spz)
 void maxZnacka(char** spz)
 {
 	if ((*spz) == NULL)
-		return 1;
+		return;
 
 	char* poleMale = malloc(2 * sizeof(char) + 1);
 	char* maxSPZ = malloc(2 * sizeof(char) + 1);
@@ -462,7 +461,7 @@ void pocetCislic(char** spz)
 	if ((*spz) == NULL)
 	{
 		printf("Pole nie je vytvorene");
-		return 1;
+		return;
 	}
 
 	for (char cislica = '0'; cislica <= '9'; cislica++)
